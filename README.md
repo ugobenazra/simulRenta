@@ -1,13 +1,12 @@
 # SimulRenta
 
-SimulRenta is a Python application for simulating various rental scenarios using data-driven insights. The app is built with Python and uses `Poetry` for dependency management, as well as Docker for containerization.
+SimulRenta is a Python application on streamlit for simulating various rental scenarios using data-driven insights. The app is built with Python and uses `Poetry` for dependency management, as well as Docker for containerization.
 
 ## Table of Contents
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Running the App](#running-the-app)
 - [Docker Setup](#docker-setup)
-- [License](#license)
 
 ---
 
@@ -49,3 +48,23 @@ To run the application, run streamlit app using the following command:
 ```bash
 poetry run streamlit run src/SimulRenta.py
 ```
+
+Now you can type this url in your browser:
+http://localhost:8501/
+
+
+## Docker Setup
+We put a Dockerfile inside this repo in order to config docker. Thanks to that, you can run the app while dockerising it.
+First build the image:
+
+```bash
+docker build -t simulrenta . 
+```
+
+And then create the conntainer:
+```bash
+docker run -dp 8501:8501 simulrenta
+```
+
+Now you can type this url in your browser:
+http://localhost:8501/
