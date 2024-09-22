@@ -1,3 +1,4 @@
+import streamlit as st
 
 def calcul_renta(dic_appart):
     prix = dic_appart["prix"]
@@ -57,35 +58,38 @@ def calcul_renta(dic_appart):
 
     dic = {
         "Cout d'achat et aménagement" : {
-            "droits_enregistrements" : droits_enregistrements,
-            "prix_travaux" : prix_travaux,
-            "COUT_ACHAT" : COUT_ACHAT,
-            "apport" : apport
+            "droits d'enregistrements" : droits_enregistrements,
+            "prix des travaux" : prix_travaux,
+            "cout d'achat" : COUT_ACHAT,
+            "apport pour le crédit" : apport
         },
         "Emprunt" : {
-            "montant_pret" : montant_pret,
-            "assur_emprunt" : assur_emprunt,
-            "n_mois" : n_mois,
-            "mensualité" : mensualité,
-            "mensualité_avec_assurance" : mensualité_avec_assurance,
-            "cout_credit" : cout_credit,
-            "cout_credit_annuel" : cout_credit_annuel
+            "montant du prêt" : montant_pret,
+            "assurance de l'emprunt" : assur_emprunt,
+            "nombre de mensualités" : n_mois,
+            "montant de la mensualité" : mensualité,
+            "montant de la mensualité avec assurance" : mensualité_avec_assurance,
+            "cout du credit annuel" : cout_credit_annuel,
+            "cout du credit total" : cout_credit,
         },
         "charges annuelles" : {
-            "taxe_fonciere" : taxe_fonciere,
-            "charge_copro_annuelle" : charge_copro_annuelle,
-            "CHARGES_ANNUELLES" : CHARGES_ANNUELLES
+            "edf" : edf,
+            "internet" : internet,
+            "assurance proprio" : assurance_proprio,
+            "taxes foncières" : taxe_fonciere,
+            "charges copro annuelles" : charge_copro_annuelle,
+            "CHARGES ANNUELLES" : CHARGES_ANNUELLES
         },
         "Cashflow annuel" : {
-            "loyer" : loyer,
+            "loyer potentiel perçu" : loyer,
             "revenus" : revenus,
             "decaissement" :  decaissement,
-            "CASHFLOW_ANNUEL" : CASHFLOW_ANNUEL
+            "CASHFLOW ANNUEL" : CASHFLOW_ANNUEL
         },
         "Profitabilité Annuelle" : {
-            "revenus_net" : revenus_net,
-            "profitabilite_hors_frais_financiers" : round(profitabilite_hors_frais_financiers, 3),
-            "profitabilite_avec_frais_financiers" : round(profitabilite_avec_frais_financiers, 3),
+            "revenus net (argent perçu après charge mais avant crédit)" : revenus_net,
+            "profitabilite hors frais financiers" : round(profitabilite_hors_frais_financiers, 3),
+            "profitabilite avec frais financiers" : round(profitabilite_avec_frais_financiers, 3),
         }
     }
 
@@ -93,15 +97,16 @@ def calcul_renta(dic_appart):
 
 
 def display_simul(dic):
-    for key in dic:
-        print(key, ":")
-        for key_bis in dic[key]:
-            if key_bis == "profitabilite_hors_frais_financiers" or key_bis == "profitabilite_avec_frais_financiers" :
-                print("\t ", key_bis ," : ", dic[key][key_bis], "%")
-            elif key_bis == "n_mois" :
-                print("\t ", key_bis ," : ", dic[key][key_bis], "mois")
-            else :
-                print("\t ", key_bis ," : ", dic[key][key_bis], "€")
-        print(" ")
-    return 0
+    for section, metrics in dic.items():
+        st.subheader(section)
+        data = {}
+        for key, value in metrics.items():
+            if key in ["profitabilite hors frais financiers", "profitabilite avec frais financiers"]:
+                data[key] = f"{value} %"
+            elif key == "nombre de mensualités":
+                data[key] = f"{value} mois"
+            else:
+                data[key] = f"{value} €"
+        st.table(data)
+    return
     
