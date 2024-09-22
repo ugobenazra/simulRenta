@@ -43,4 +43,9 @@ Once Poetry is installed, use it to install the dependencies specified in the py
 poetry install
 ```
 
+## Running the App
+To run the application, run streamlit app using the following command:
 
+```bash
+poetry run streamlit run src/SimulRenta.py
+```
