@@ -8,6 +8,8 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.9,<3.9.7 || >3.9.7,<4.0"
 streamlit = "^1.38.0"
+folium = "^0.17.0"
+streamlit-folium = "^0.22.1"
 
 
 [build-system]
